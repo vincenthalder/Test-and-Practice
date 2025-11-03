@@ -15,10 +15,10 @@ glimpse(titanic)
 ## (1) Building a Data-Audit Table 
 audit_table <- tibble(
   vars = colnames(titanic_raw),
-  number_non_missing = titanic_raw |> 
-    summarise(across(everything(), ~ sum(!is.na(.x)))) |> 
-    unlist(use.names = FALSE)
-)
+  number_non_missing = sapply(titanic_raw, function(x) sum(!is.na(x)))
+  )
+
+
 
 
 ?count
