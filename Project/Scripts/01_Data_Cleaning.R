@@ -13,15 +13,14 @@ glimpse(titanic)
 
 
 ## (1) Building a Data-Audit Table 
+# I have used several function specs to iterate functions over objects 
+# i.e., sapply and map, using formula-lambda specification for practice purposes
 audit_table <- tibble(
   vars = colnames(titanic_raw),
-  number_non_missing = sapply(titanic_raw, function(x) sum(!is.na(x)))
-  )
+  number_non_missing = sapply(titanic_raw, function(x) sum(!is.na(x))),
+  percentage_missing = round(map_dbl(titanic_raw, ~ sum(is.na(.x))/length(.x)), 2)
+)
 
-
-
-
-?count
 ## (2) Clean Names to snake case 
 titanic_clean <- titanic_raw |>  
   clean_names(case = "snake") |> 
